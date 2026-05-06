@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Blog Posts{% endblock %}
+{% block content %}
+
+{% if categories %}
+<div style="margin-bottom:1.5rem;">
+  <strong style="font-size:.85rem;color:#888;text-transform:uppercase;letter-spacing:.05em;">Categories:</strong>
+  {% for cat in categories %}
+    <a href="{% url 'blog:category_posts' cat.slug %}" style="display:inline-block;background:#eee;color:#333;font-size:.82rem;padding:.25rem .7rem;border-radius:20px;margin:.25rem .2rem;text-decoration:none;">{{ cat.name }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% for post in posts %}
+<div class="card">
+  <h2><a href="{% url 'blog:post_detail' post.published_at.year post.published_at.month post.published_at.day post.slug %}">{{ post.title }}</a></h2>
+  <div class="meta">
+    By <strong>{{ post.author.get_full_name|default:post.author.username }}</strong>
+    &middot; {{ post.published_at|date:"N j, Y" }}
+    {% if post.category %}&middot; <a href="{% url 'blog:category_posts' post.category.slug %}"><span class="badge">{{ post.category.name }}</span></a>{% endif %}
+    &middot; {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+  </div>
+  <p class="body-text">{{ post.body|truncatewords:40 }}</p>
+</div>
+{% empty %}
+<div class="card"><p>No published posts yet. Add some via the <a href="/admin/">admin panel</a>.</p></div>
+{% endfor %}
+
+{% endblock %}

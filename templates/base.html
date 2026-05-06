@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Django Blog Demo{% endblock %}</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+    header { background: #1a1a2e; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    header a { color: #e0e0e0; text-decoration: none; font-size: 1.4rem; font-weight: bold; }
+    nav a { color: #aaa; text-decoration: none; margin-left: 1.5rem; font-size: .9rem; }
+    nav a:hover { color: #fff; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: #fff; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .card h2 a { color: #1a1a2e; text-decoration: none; font-size: 1.3rem; }
+    .card h2 a:hover { color: #6c63ff; }
+    .meta { font-size: .82rem; color: #888; margin: .4rem 0 .8rem; }
+    .meta a { color: #6c63ff; text-decoration: none; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: .72rem; padding: .2rem .6rem; border-radius: 20px; margin-right: .3rem; }
+    .body-text { line-height: 1.7; font-size: .95rem; }
+    .comment { border-top: 1px solid #eee; padding-top: 1rem; margin-top: 1rem; }
+    .comment .name { font-weight: bold; font-size: .9rem; }
+    footer { text-align: center; padding: 2rem; font-size: .8rem; color: #aaa; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="{% url 'blog:post_list' %}">Django Blog Demo</a>
+  <nav>
+    <a href="{% url 'blog:post_list' %}">All Posts</a>
+    <a href="/admin/">Admin</a>
+  </nav>
+</header>
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+<footer>Django 6 + PostgreSQL Demo</footer>
+</body>
+</html>

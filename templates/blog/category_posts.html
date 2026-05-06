@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.name }} Posts{% endblock %}
+{% block content %}
+
+<h2 style="margin-bottom:1.5rem;">Category: <span class="badge" style="font-size:1rem;">{{ category.name }}</span></h2>
+{% if category.description %}<p style="color:#666;margin-bottom:1.5rem;">{{ category.description }}</p>{% endif %}
+
+{% for post in posts %}
+<div class="card">
+  <h2><a href="{% url 'blog:post_detail' post.published_at.year post.published_at.month post.published_at.day post.slug %}">{{ post.title }}</a></h2>
+  <div class="meta">
+    By <strong>{{ post.author.get_full_name|default:post.author.username }}</strong>
+    &middot; {{ post.published_at|date:"N j, Y" }}
+  </div>
+  <p class="body-text">{{ post.body|truncatewords:40 }}</p>
+</div>
+{% empty %}
+<div class="card"><p>No posts in this category yet.</p></div>
+{% endfor %}
+
+<p style="margin-top:1rem;"><a href="{% url 'blog:post_list' %}" style="color:#6c63ff;">&larr; All posts</a></p>
+
+{% endblock %}

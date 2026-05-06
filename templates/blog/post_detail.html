@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h1 style="font-size:1.6rem;margin-bottom:.5rem;">{{ post.title }}</h1>
+  <div class="meta">
+    By <strong>{{ post.author.get_full_name|default:post.author.username }}</strong>
+    &middot; {{ post.published_at|date:"N j, Y" }}
+    {% if post.category %}&middot; <a href="{% url 'blog:category_posts' post.category.slug %}"><span class="badge">{{ post.category.name }}</span></a>{% endif %}
+  </div>
+  <p class="body-text" style="white-space:pre-line;">{{ post.body }}</p>
+</div>
+
+<div class="card">
+  <h3 style="margin-bottom:1rem;">{{ comments.count }} Comment{{ comments.count|pluralize }}</h3>
+  {% for comment in comments %}
+  <div class="comment">
+    <div class="name">{{ comment.author_name }} <span style="font-weight:normal;color:#888;font-size:.8rem;">{{ comment.created_at|date:"N j, Y" }}</span></div>
+    <p class="body-text" style="margin-top:.4rem;">{{ comment.body }}</p>
+  </div>
+  {% empty %}
+  <p style="color:#888;font-size:.9rem;">No comments yet.</p>
+  {% endfor %}
+</div>
+
+<p style="margin-top:1rem;"><a href="{% url 'blog:post_list' %}" style="color:#6c63ff;">&larr; Back to all posts</a></p>
+
+{% endblock %}
