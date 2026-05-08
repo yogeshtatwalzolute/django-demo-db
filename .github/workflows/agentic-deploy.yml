@@ -29,9 +29,6 @@ jobs:
           DB_HOST: "agentic-app-db-20260508065746627700000010.c9g40o284iv2.ap-south-1.rds.amazonaws.com"
           DB_PORT: "5432"
           DB_TYPE: "postgres"
-          DB_USER: "app"
-          DB_PASSWORD: "8VDrRFXdRamyGqW8sopLroziEIA5fpJv"
-          DB_NAME: "app"
           API_URL: "app-2026050806574577450000000e-1020955453.ap-south-1.elb.amazonaws.com"
         run: |
           INSTANCE_ID="${EC2_INSTANCE_ID:-}"
